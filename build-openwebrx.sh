@@ -12,8 +12,8 @@ complain_to_darklight() {
 
 if [ ! -d build ]; then
         #INSTALL DEPENDANCIES TOO
-        sudo apt update
-        sudo apt install git build-essential cmake debhelper libfftw3-dev libsamplerate0-dev dh-python python3-all libpython3-dev python3-setuptools librtlsdr-dev libsoapysdr-dev python3-distutils-extra
+        sudo apt -y update
+        sudo apt -y install git build-essential cmake debhelper libfftw3-dev libsamplerate0-dev dh-python python3-all libpython3-dev python3-setuptools librtlsdr-dev libsoapysdr-dev python3-distutils-extra
 
         mkdir build
         mkdir build/compiled
@@ -59,7 +59,7 @@ while read -r line; do
                         FORCE_RECOMPILE=1
                 fi
         fi
-        dpkg-buildpackage
+        dpkg-buildpackage -us -uc
         if [ $? -ne 0 ]; then
                 complain_to_darklight $reponame $branch
         fi
