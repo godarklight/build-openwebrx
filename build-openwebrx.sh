@@ -37,11 +37,13 @@ while read -r line; do
                 git clone $repo $reponame
                 cd $reponame
                 git checkout $branch
+		git submodule update --init
                 current_hash=`git log -1 --format=%H`
         else
                 cd $reponame
                 git fetch --all
                 git reset --hard origin/$branch
+		git submodule update --init
                 current_hash=`git log -1 --format=%H`
                 if [ -f "../$reponame-tag.txt" ]; then
                         old_hash=`cat ../$reponame-tag.txt`
